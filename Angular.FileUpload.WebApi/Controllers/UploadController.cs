@@ -1,4 +1,8 @@
 ﻿using Angular.FileUpload.WebApi.RequestResponse;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -23,16 +27,14 @@ namespace Angular.FileUpload.WebApi.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
-
+            
             try
             {
                 StringBuilder sb = new StringBuilder(); // Holds the response body
 
                 // Read the form data and return an async task.
-                await Request.Content.ReadAsMultipartAsync(provider);
+                //await Request.Content.ReadAsMultipartAsync(provider);
+                var provider = await Request.Content.ReadAsMultipartAsync(new InMemoryMultipartFormDataStreamProvider());
 
                 // This illustrates how to get the form data.
                 foreach (var key in provider.FormData.AllKeys)
@@ -42,12 +44,20 @@ namespace Angular.FileUpload.WebApi.Controllers
                         response.FormValues.Add(key, val);
                     }
                 }
+                
+                //access form data  
+                NameValueCollection formData = provider.FormData;
+                //access files  
+                IList<HttpContent> files = provider.Files;
+                HttpContent file1 = files[0];
 
-                // This illustrates how to get the file names for uploaded files.
-                foreach (var file in provider.FileData)
-                {
-                    response.FormValues.Add("avatar", file.Headers.ContentDisposition.FileName.Replace("\"", ""));
-                }
+                var thisFileName = file1.Headers.ContentDisposition.FileName.Trim('\"');
+                var extn = System.IO.Path.GetExtension(file1.Headers.ContentDisposition.FileName.Trim('\"'));
+                var fileName = System.IO.Path.GetFileNameWithoutExtension(file1.Headers.ContentDisposition.FileName.Trim('\"'));
+                var today = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var newFileName = fileName + "_" + today + extn;
+                response.FormValues.Add("avatar", newFileName);
+
 
                 response.Success = true;
                 return response;

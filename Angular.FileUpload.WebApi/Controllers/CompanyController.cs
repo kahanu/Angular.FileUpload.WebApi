@@ -30,6 +30,7 @@ namespace Angular.FileUpload.WebApi.Controllers
                 }
 
                 
+                
 
                 // You would actually do a service call or some database update here.
                 response.Company.Id = Guid.NewGuid();

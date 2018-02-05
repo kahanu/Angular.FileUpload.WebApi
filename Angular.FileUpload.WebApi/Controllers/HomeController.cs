@@ -12,6 +12,8 @@ namespace Angular.FileUpload.WebApi.Controllers
         {
             ViewBag.Title = "Home Page";
 
+            
+
             return View();
         }
     }
