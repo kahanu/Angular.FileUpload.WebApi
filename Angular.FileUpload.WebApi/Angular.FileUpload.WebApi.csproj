@@ -187,18 +187,22 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Extensions\Mapper.cs" />
     <Compile Include="Models\CompanyInformation.cs" />
     <Compile Include="Models\FileInformation.cs" />
+    <Compile Include="Models\PersonInformation.cs" />
     <Compile Include="RequestResponse\BaseRnR.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="RequestResponse\CompanyRnR.cs" />
+    <Compile Include="RequestResponse\PersonRnR.cs" />
     <Compile Include="RequestResponse\ProductResponse.cs" />
     <Compile Include="RequestResponse\UploadResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
